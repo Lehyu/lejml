@@ -21,30 +21,30 @@ public class LinearModel {
     protected INDArray W;
     protected boolean isTrained;
 
-    public static class Builder {
+    public static class Builder<T extends Builder<T>> {
         private int nJobs = 1;
         private boolean normalize = true;
         private boolean fitIntercept = true;
         private IOptimizer optimizer = new SGDOptimizer();
 
-        public Builder nJobs(int nJobs) {
+        public T nJobs(int nJobs) {
             this.nJobs = nJobs;
-            return this;
+            return (T) this;
         }
 
-        public Builder normalize(boolean normalize) {
+        public T normalize(boolean normalize) {
             this.normalize = normalize;
-            return this;
+            return (T) this;
         }
 
-        public Builder fitIntercept(boolean fitIntercept) {
+        public T fitIntercept(boolean fitIntercept) {
             this.fitIntercept = fitIntercept;
-            return this;
+            return (T) this;
         }
 
-        public Builder optimizer(IOptimizer optimizer) {
+        public T optimizer(IOptimizer optimizer) {
             this.optimizer = optimizer;
-            return this;
+            return (T) this;
         }
 
         public LinearModel build() {

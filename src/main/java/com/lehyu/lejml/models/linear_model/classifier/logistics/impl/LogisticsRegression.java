@@ -19,6 +19,13 @@ import com.lehyu.lejml.utils.ValidationUtils;
  */
 public class LogisticsRegression extends LinearModel implements ILogisticsRegression {
 
+    public static class Builder extends LinearModel.Builder<Builder> {
+
+        public LogisticsRegression build() {
+            return new LogisticsRegression(this);
+        }
+    }
+
     public LogisticsRegression(Builder builder) {
         super(builder);
         this.optimizer.setLoss(LossUtils.LossEnum.LOG_LOSS.getName());
