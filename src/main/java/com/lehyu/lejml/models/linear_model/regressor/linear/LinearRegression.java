@@ -7,13 +7,18 @@
 package com.lehyu.lejml.models.linear_model.regressor.linear;
 
 import org.nd4j.linalg.api.ndarray.INDArray;
-import org.nd4j.linalg.factory.Nd4j;
 
 import com.lehyu.lejml.loss.LossUtils;
 import com.lehyu.lejml.models.linear_model.LinearModel;
 import com.lehyu.lejml.utils.ValidationUtils;
 
 public class LinearRegression extends LinearModel implements ILinearRegression {
+
+    public static class Builder extends LinearModel.Builder<Builder> {
+        public LinearRegression build() {
+            return new LinearRegression(this);
+        }
+    }
 
     public LinearRegression(Builder builder) {
         super(builder);
@@ -23,7 +28,7 @@ public class LinearRegression extends LinearModel implements ILinearRegression {
     @Override
     public void fit(INDArray X, INDArray y) {
         ValidationUtils.checkXy(X, y);
-        assert y.columns() == 1: "Linear regression should have only one target";
+        assert y.columns() == 1 : "Linear regression should have only one target";
         X = this.normalize(X);
         X = this.appendIntercept(X);
         this.initWeights(X.columns(), y.columns());
