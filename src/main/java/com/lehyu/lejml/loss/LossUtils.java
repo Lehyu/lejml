@@ -6,13 +6,15 @@
 
 package com.lehyu.lejml.loss;
 
-import com.lehyu.lejml.loss.entropy.LogLoss;
-import com.lehyu.lejml.loss.entropy.SquareLoss;
+import com.lehyu.lejml.loss.impl.LogLoss;
+import com.lehyu.lejml.loss.impl.SquareLoss;
 
 public class LossUtils {
     public enum LossEnum {
         LOG_LOSS(0, "logloss"),
-        SQUARE_LOSS(1, "square");
+        SQUARE_LOSS(1, "square"),
+        SOFTMAX(2, "softmax");
+
 
         private int code;
         private String name;

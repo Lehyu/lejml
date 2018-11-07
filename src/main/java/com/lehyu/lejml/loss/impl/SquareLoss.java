@@ -4,7 +4,7 @@
 
 // created by lianghongyu at 2018/10/29
 
-package com.lehyu.lejml.loss.entropy;
+package com.lehyu.lejml.loss.impl;
 
 import org.nd4j.linalg.api.ndarray.INDArray;
 

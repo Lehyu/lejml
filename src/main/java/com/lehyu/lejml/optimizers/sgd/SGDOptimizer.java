@@ -10,7 +10,7 @@ import org.nd4j.linalg.api.ndarray.INDArray;
 
 import com.lehyu.lejml.loss.ILoss;
 import com.lehyu.lejml.loss.LossUtils;
-import com.lehyu.lejml.loss.entropy.LogLoss;
+import com.lehyu.lejml.loss.impl.LogLoss;
 import com.lehyu.lejml.normalizer.L1Normalizer;
 import com.lehyu.lejml.normalizer.L2Normalizer;
 import com.lehyu.lejml.optimizers.IOptimizer;

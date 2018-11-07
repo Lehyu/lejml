@@ -19,7 +19,15 @@ import com.lehyu.lejml.utils.ValidationUtils;
  */
 public class LogisticsRegression extends LinearModel implements ILogisticsRegression {
 
+    private boolean isMultiClass;
+
     public static class Builder extends LinearModel.Builder<Builder> {
+        private boolean isMultiClass = false;
+
+        public Builder isMultiClass(boolean isMultiClass) {
+            this.isMultiClass = isMultiClass;
+            return this;
+        }
 
         public LogisticsRegression build() {
             return new LogisticsRegression(this);
@@ -28,13 +36,18 @@ public class LogisticsRegression extends LinearModel implements ILogisticsRegres
 
     public LogisticsRegression(Builder builder) {
         super(builder);
-        this.optimizer.setLoss(LossUtils.LossEnum.LOG_LOSS.getName());
+        this.isMultiClass = builder.isMultiClass;
+        if (isMultiClass) {
+            this.optimizer.setLoss(LossUtils.LossEnum.SOFTMAX.getName());
+        } else {
+            this.optimizer.setLoss(LossUtils.LossEnum.LOG_LOSS.getName());
+        }
     }
 
     @Override
     public void fit(INDArray X, INDArray y) {
         ValidationUtils.checkXy(X, y);
-        assert y.columns() == 1 : "Logistics regression should have only one target";
+        assert this.isMultiClass || y.columns() == 1 : "Logistics regression should have only one target";
         X = this.normalize(X);
         X = this.appendIntercept(X);
         initWeights(X.columns(), y.columns());
