@@ -6,7 +6,8 @@
 
 package com.lehyu.lejml.models;
 
-import com.lehyu.lejml.models.IEstimator;
+import org.nd4j.linalg.api.ndarray.INDArray;
 
 public interface IClassifier extends IEstimator {
+    INDArray predictProb(INDArray X);
 }

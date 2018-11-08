@@ -7,6 +7,7 @@
 package com.lehyu.lejml.models.linear_model.classifier.logistics.impl;
 
 import org.nd4j.linalg.api.ndarray.INDArray;
+import org.nd4j.linalg.factory.Nd4j;
 import org.nd4j.linalg.ops.transforms.Transforms;
 
 import com.lehyu.lejml.loss.LossUtils;
@@ -57,8 +58,22 @@ public class LogisticsRegression extends LinearModel implements ILogisticsRegres
 
     @Override
     public INDArray predict(INDArray X) {
+        INDArray y = predictProb(X);
+        return Nd4j.argMax(y, 1);
+    }
+
+
+    @Override
+    public INDArray predictProb(INDArray X) {
         assert this.isTrained : "Train first";
         X = this.appendIntercept(X);
-        return Transforms.exp(X.mmul(W).rsub(0)).add(1.0).rdiv(1.0);
+        INDArray y;
+        if (this.isMultiClass){
+            y = Transforms.exp(X.mmul(W));
+            y = y.divColumnVector(y.sum(1));
+        } else {
+            y = Transforms.exp(X.mmul(W).rsub(0)).add(1.0).rdiv(1.0);
+        }
+        return y;
     }
 }

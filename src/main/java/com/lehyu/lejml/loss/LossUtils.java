@@ -7,6 +7,7 @@
 package com.lehyu.lejml.loss;
 
 import com.lehyu.lejml.loss.impl.LogLoss;
+import com.lehyu.lejml.loss.impl.SoftmaxLoss;
 import com.lehyu.lejml.loss.impl.SquareLoss;
 
 public class LossUtils {
@@ -46,6 +47,8 @@ public class LossUtils {
             return new LogLoss();
         } else if (name.equalsIgnoreCase(LossEnum.SQUARE_LOSS.getName())) {
             return new SquareLoss();
+        } else if (name.equalsIgnoreCase(LossEnum.SOFTMAX.getName())) {
+            return new SoftmaxLoss();
         }
         return null;
     }
