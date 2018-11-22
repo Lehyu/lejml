@@ -4,7 +4,7 @@
 
 // created by lianghongyu at 2018/10/25
 
-package com.lehy.lejml.models.classifier.logistics;
+package com.lehy.lejml.models.classifier;
 
 import java.io.IOException;
 
@@ -28,8 +28,8 @@ public class LogisticsRegressionTest {
         INDArray y = oneHot(labels);
         INDArray X = data.getColumns(0, 1, 2, 3);
         SGDOptimizer optimizer =
-                new SGDOptimizer.Builder().batch(5).eta(1e-1).maxIter(10000).loss(LossUtils.LossEnum.SOFTMAX.getName())
-                        .lambda(1e-4).earlyStopping(20).build();
+                new SGDOptimizer.Builder().batch(5).eta(1e-3).maxIter(10000).loss(LossUtils.LossEnum.SOFTMAX.getName())
+                        .lambda(0).earlyStopping(20).build();
         LogisticsRegression lr =
                 new LogisticsRegression.Builder().fitIntercept(true).normalize(true).isMultiClass(true).copied(true)
                         .optimizer(optimizer).build();

@@ -30,10 +30,11 @@ public class LinearRegression extends LinearModel implements ILinearRegression {
     public void fit(INDArray X, INDArray y) {
         ValidationUtils.checkXy(X, y);
         assert y.columns() == 1 : "Linear regression should have only one target";
-        X = this.normalize(X);
-        X = this.appendIntercept(X);
-        this.initWeights(X.columns(), y.columns());
-        X = this.optimizer.optim(X, y, W);
+        INDArray XCopy = this.copy(X);
+        XCopy = this.normalize(XCopy);
+        XCopy = this.appendIntercept(XCopy);
+        this.initWeights(XCopy.columns(), y.columns());
+        W = this.optimizer.optim(XCopy, y, W);
         this.isTrained = true;
     }
 

@@ -80,7 +80,7 @@ public class LinearModel {
     }
 
     protected INDArray copy(INDArray X) {
-        if (this.copied) {
+        if (this.copied || this.normalize) {
             INDArray XCopy = Nd4j.zeros(X.rows(), X.columns());
             Nd4j.copy(X, XCopy);
             return XCopy;
