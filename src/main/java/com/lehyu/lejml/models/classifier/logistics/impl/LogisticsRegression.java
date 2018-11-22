@@ -4,15 +4,15 @@
 
 // created by lianghongyu at 2018/10/25
 
-package com.lehyu.lejml.models.linear_model.classifier.logistics.impl;
+package com.lehyu.lejml.models.classifier.logistics.impl;
 
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.factory.Nd4j;
 import org.nd4j.linalg.ops.transforms.Transforms;
 
 import com.lehyu.lejml.loss.LossUtils;
-import com.lehyu.lejml.models.linear_model.LinearModel;
-import com.lehyu.lejml.models.linear_model.classifier.logistics.ILogisticsRegression;
+import com.lehyu.lejml.models.LinearModel;
+import com.lehyu.lejml.models.classifier.logistics.ILogisticsRegression;
 import com.lehyu.lejml.utils.ValidationUtils;
 
 /**

@@ -13,7 +13,7 @@ import org.nd4j.linalg.factory.Nd4j;
 
 import com.lehyu.lejml.loss.LossUtils;
 import com.lehyu.lejml.metrics.impl.MeanSquareError;
-import com.lehyu.lejml.models.linear_model.regressor.linear.impl.LinearRegression;
+import com.lehyu.lejml.models.regression.linear.impl.LinearRegression;
 import com.lehyu.lejml.optimizers.sgd.SGDOptimizer;
 
 public class LinearRegressionTest {

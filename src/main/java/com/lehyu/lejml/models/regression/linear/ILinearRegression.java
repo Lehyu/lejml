@@ -4,7 +4,7 @@
 
 // created by lianghongyu at 2018/10/26
 
-package com.lehyu.lejml.models.linear_model.regressor.linear;
+package com.lehyu.lejml.models.regression.linear;
 
 import com.lehyu.lejml.models.IRegressor;
 

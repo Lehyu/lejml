@@ -4,13 +4,13 @@
 
 // created by lianghongyu at 2018/10/26
 
-package com.lehyu.lejml.models.linear_model.regressor.linear.impl;
+package com.lehyu.lejml.models.regression.linear.impl;
 
 import org.nd4j.linalg.api.ndarray.INDArray;
 
 import com.lehyu.lejml.loss.LossUtils;
-import com.lehyu.lejml.models.linear_model.LinearModel;
-import com.lehyu.lejml.models.linear_model.regressor.linear.ILinearRegression;
+import com.lehyu.lejml.models.LinearModel;
+import com.lehyu.lejml.models.regression.linear.ILinearRegression;
 import com.lehyu.lejml.utils.ValidationUtils;
 
 public class LinearRegression extends LinearModel implements ILinearRegression {
