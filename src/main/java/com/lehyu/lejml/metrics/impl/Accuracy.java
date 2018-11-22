@@ -8,8 +8,6 @@ package com.lehyu.lejml.metrics.impl;
 
 import org.nd4j.linalg.api.ndarray.INDArray;
 
-import com.lehyu.lejml.metrics.IMetrics;
-
 public class Accuracy {
     public static double compute(INDArray yTrue, INDArray yPred) {
         assert yTrue.rows() == yPred.rows() : "yTrue and yPred don't have the same dimension";

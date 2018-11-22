@@ -6,7 +6,5 @@
 
 package com.lehyu.lejml.models;
 
-import com.lehyu.lejml.models.IEstimator;
-
 public interface IRegressor extends IEstimator {
 }

@@ -148,7 +148,7 @@ public class SGDOptimizer implements IOptimizer {
 
     private INDArray updateWeights(INDArray W, INDArray diffW) {
         if (0 != this.lambda) {
-            diffW = diffW.add(L2Normalizer.norm(W).mul(this.lambda));
+            diffW = diffW.add(W.mul(this.lambda));
         }
         if (0 != this.gamma) {
             diffW = diffW.add(L1Normalizer.norm(W).mul(this.gamma));

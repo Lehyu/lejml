@@ -49,10 +49,11 @@ public class LogisticsRegression extends LinearModel implements ILogisticsRegres
     public void fit(INDArray X, INDArray y) {
         ValidationUtils.checkXy(X, y);
         assert this.isMultiClass || y.columns() == 1 : "Logistics regression should have only one target";
-        X = this.normalize(X);
-        X = this.appendIntercept(X);
-        initWeights(X.columns(), y.columns());
-        W = optimizer.optim(X, y, W);
+        INDArray XCopy = this.copy(X);
+        XCopy = this.normalize(XCopy);
+        XCopy = this.appendIntercept(XCopy);
+        initWeights(XCopy.columns(), y.columns());
+        W = optimizer.optim(XCopy, y, W);
         this.isTrained = true;
     }
 
@@ -66,13 +67,15 @@ public class LogisticsRegression extends LinearModel implements ILogisticsRegres
     @Override
     public INDArray predictProb(INDArray X) {
         assert this.isTrained : "Train first";
-        X = this.appendIntercept(X);
+        INDArray XCopy = this.copy(X);
+        XCopy = this.normalize(XCopy);
+        XCopy = this.appendIntercept(XCopy);
         INDArray y;
         if (this.isMultiClass){
-            y = Transforms.exp(X.mmul(W));
+            y = Transforms.exp(XCopy.mmul(W));
             y = y.divColumnVector(y.sum(1));
         } else {
-            y = Transforms.exp(X.mmul(W).rsub(0)).add(1.0).rdiv(1.0);
+            y = Transforms.exp(XCopy.mmul(W).rsub(0)).add(1.0).rdiv(1.0);
         }
         return y;
     }
