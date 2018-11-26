@@ -10,9 +10,9 @@ import org.nd4j.linalg.api.ndarray.INDArray;
 
 import com.lehyu.lejml.loss.ILoss;
 import com.lehyu.lejml.loss.LossUtils;
+import com.lehyu.lejml.loss.impl.L2Loss;
 import com.lehyu.lejml.loss.impl.LogLoss;
-import com.lehyu.lejml.normalizer.L1Normalizer;
-import com.lehyu.lejml.normalizer.L2Normalizer;
+import com.lehyu.lejml.loss.impl.L1Loss;
 import com.lehyu.lejml.optimizers.IOptimizer;
 import com.lehyu.lejml.utils.RandomUtils;
 
@@ -107,9 +107,8 @@ public class SGDOptimizer implements IOptimizer {
                 int[] rows = getIndices(nBatch, nSamples);
                 INDArray subX = X.getRows(rows);
                 INDArray subY = y.getRows(rows);
-                curLoss += loss.computeLoss(subX, subY, W);
-                INDArray diffW = loss.derive(subX, subY, W);
-                W = updateWeights(W, diffW);
+                curLoss += this.computeLoss(subX, subY, W);
+                W = W.sub(this.derive(subX, subY, W));
             }
             curLoss /= nSamples;
             if (earlyStopping(curLoss)) {
@@ -146,15 +145,20 @@ public class SGDOptimizer implements IOptimizer {
     private void updateEta(int iter) {
     }
 
-    private INDArray updateWeights(INDArray W, INDArray diffW) {
+    private double computeLoss(INDArray X, INDArray y, INDArray W) {
+        double loss = this.loss.computeLoss(X, y, W);
         if (0 != this.lambda) {
-            diffW = diffW.add(W.mul(this.lambda));
+            loss += L2Loss.computeLoss(W);
         }
-        if (0 != this.gamma) {
-            diffW = diffW.add(L1Normalizer.norm(W).mul(this.gamma));
+        return loss;
+    }
+
+    private INDArray derive(INDArray X, INDArray y, INDArray W) {
+        INDArray grad = this.loss.derive(X, y, W).mul(this.eta);
+        if (0 != this.lambda) {
+            grad = grad.sub(L2Loss.derive(W).mul(this.lambda*this.eta));
         }
-        W = W.sub(diffW.mul(this.eta));
-        return W;
+        return grad;
     }
 
     private int getStart(int nBatch) {
