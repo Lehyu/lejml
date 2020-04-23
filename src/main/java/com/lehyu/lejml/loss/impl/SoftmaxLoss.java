@@ -2,7 +2,7 @@
  * Copyright (C) 2018 Baidu, Inc. All Rights Reserved.
  */
 
-// created by lianghongyu at 2018/11/7
+// created by Lehyu at 2018/11/7
 
 package com.lehyu.lejml.loss.impl;
 
